@@ -8,8 +8,11 @@ import TableWeather from './components/TableWeather';
 import ControlWeather from './components/ControlWeather';
 import LineChartWeather from './components/LineChartWeather';
 
+import Item from './interface/Item';
+
 {/* Hooks */ }
 import { useEffect, useState } from 'react';
+
 
 interface Indicator {
   title?: String;
@@ -18,6 +21,9 @@ interface Indicator {
 }
 
 function App() {
+
+  // Variable de estado para un arreglo del tipo Item
+  const [items, setItems] = useState<Item[]>([]);
 
   {/* Variable de estado y función de actualización */ }
   let [indicators, setIndicators] = useState<Indicator[]>([])
@@ -58,6 +64,7 @@ function App() {
 
         {/* Modificación de la variable de estado mediante la función de actualización */ }
         setOWM(savedTextXML)
+
       }
 
       {/* Valide el procesamiento con el valor de savedTextXML */ }
@@ -93,6 +100,23 @@ function App() {
 
         {/* Modificación de la variable de estado mediante la función de actualización */ }
         setIndicators(dataToIndicators)
+
+        //
+        const times = xml.getElementsByTagName('time');
+        const dataToItems: Item[] = [];
+
+        for (let i = 0; i < times.length && i < 6; i++) {
+          const time = times[i];
+          const dateStart = time.getAttribute('from') || '';
+          const dateEnd = time.getAttribute('to') || '';
+          const precipitation = time.querySelector('precipitation')?.getAttribute('probability') || '';
+          const humidity = time.querySelector('humidity')?.getAttribute('value') || '';
+          const clouds = time.querySelector('clouds')?.getAttribute('all') || '';
+
+          dataToItems.push({ dateStart, dateEnd, precipitation, humidity, clouds });
+        }
+
+        setItems(dataToItems);
       }
     }
 
@@ -144,7 +168,7 @@ function App() {
             <ControlWeather />
           </Grid>
           <Grid size={{ xs: 12, xl: 9 }}>
-            <TableWeather />
+            <TableWeather itemsIn={items}/>
           </Grid>
         </Grid>
 
