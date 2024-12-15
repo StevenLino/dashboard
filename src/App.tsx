@@ -7,6 +7,7 @@ import IndicatorWeather from './components/IndicatorWeather';
 import TableWeather from './components/TableWeather';
 import ControlWeather from './components/ControlWeather';
 import LineChartWeather from './components/LineChartWeather';
+import Clock from './components/Hora';
 
 import Item from './interface/Item';
 
@@ -83,7 +84,7 @@ function App() {
       */}
 
         let name = xml.getElementsByTagName("name")[0].innerHTML || ""
-        dataToIndicators.push({ "title": "Location", "subtitle": "City", "value": name })
+        dataToIndicators.push({ "title": xml.getElementsByTagName("country")[0].innerHTML || " ", "subtitle": "City", "value": name })
 
         let location = xml.getElementsByTagName("location")[1]
 
@@ -143,6 +144,11 @@ function App() {
   {/* JSX */ }
   return (
     <Grid container spacing={5}>
+      
+      {/* Hora */}
+      <Grid size={{ xs: 12 }}>
+        <Clock />
+      </Grid>
 
       {/* Indicadores */}
       {/* <Grid size={{ xs: 12, xl: 3 }}>
@@ -157,6 +163,7 @@ function App() {
       <Grid size={{ xs: 12, xl: 3 }}>
         <IndicatorWeather title={'Indicator 4'} subtitle={'Unidad 4'} value={"3.21"} />
       </Grid> */}
+
       {renderIndicators()}
 
       {/* Tabla */}
@@ -168,7 +175,7 @@ function App() {
             <ControlWeather />
           </Grid>
           <Grid size={{ xs: 12, xl: 9 }}>
-            <TableWeather itemsIn={items}/>
+            <TableWeather itemsIn={items} />
           </Grid>
         </Grid>
 

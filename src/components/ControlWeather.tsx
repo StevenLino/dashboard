@@ -55,10 +55,10 @@ export default function ControlWeather() {
             sx={{
                 p: 2,
                 display: 'flex',
-                flexDirection: 'column'
+                flexDirection: 'column' 
             }}
         >
-            <Typography mb={2} component="h3" variant="h6" color="primary">
+            <Typography mb={2} component="h3" variant="h6" color="#7FFFD4">
                 Variables Meteorológicas
             </Typography>
 

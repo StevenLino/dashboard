@@ -5,6 +5,16 @@
   text-align: center;
 }
 
+body{
+  background-image: url(./lluvia.gif);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  opacity: 85%;
+}
+
+
 .logo {
   height: 6em;
   padding: 1.5em;
