@@ -113,8 +113,9 @@ function App() {
           const precipitation = time.querySelector('precipitation')?.getAttribute('probability') || '';
           const humidity = time.querySelector('humidity')?.getAttribute('value') || '';
           const clouds = time.querySelector('clouds')?.getAttribute('all') || '';
+          const temperature =time.querySelector('temperature')?.getAttribute('value')||'';
 
-          dataToItems.push({ dateStart, dateEnd, precipitation, humidity, clouds });
+          dataToItems.push({ dateStart, dateEnd, precipitation, humidity, clouds, temperature });
         }
 
         setItems(dataToItems);
@@ -175,7 +176,7 @@ function App() {
             <ControlWeather />
           </Grid>
           <Grid size={{ xs: 12, xl: 9 }}>
-            <TableWeather itemsIn={items} />
+            <LineChartWeather itemsIn={items}/>
           </Grid>
         </Grid>
 
@@ -183,8 +184,8 @@ function App() {
 
 
       {/* Gráfico */}
-      <Grid size={{ xs: 12, xl: 4 }}>
-        <LineChartWeather />
+      <Grid size={{ xs: 12, xl: 9 }}>
+        < TableWeather itemsIn={items}/>
       </Grid>
 
     </Grid>
