@@ -18,7 +18,7 @@ export default function IndicatorWeather(config: Indicator) {
              }}
            >
              <Typography component="h2" variant="h6" 
-                         color="#7FFFD4" gutterBottom>
+                         color="#26b384" gutterBottom>
                  {config.title} 
              </Typography>
              <Typography component="p" variant="h4">

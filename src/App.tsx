@@ -89,13 +89,13 @@ function App() {
         let location = xml.getElementsByTagName("location")[1]
 
         let latitude = location.getAttribute("latitude") || ""
-        dataToIndicators.push({ "title": "Location", "subtitle": "Latitude", "value": latitude })
+        dataToIndicators.push({ "title": "Latitude", "subtitle": "Latitude", "value": latitude })
 
         let longitude = location.getAttribute("longitude") || ""
-        dataToIndicators.push({ "title": "Location", "subtitle": "Longitude", "value": longitude })
+        dataToIndicators.push({ "title": "Longitude", "subtitle": "Longitude", "value": longitude })
 
         let altitude = location.getAttribute("altitude") || ""
-        dataToIndicators.push({ "title": "Location", "subtitle": "Altitude", "value": altitude })
+        dataToIndicators.push({ "title": "Altitude", "subtitle": "Altitude", "value": altitude })
 
         // console.log( dataToIndicators )
 
@@ -108,14 +108,23 @@ function App() {
 
         for (let i = 0; i < times.length && i < 6; i++) {
           const time = times[i];
-          const dateStart = time.getAttribute('from') || '';
-          const dateEnd = time.getAttribute('to') || '';
+          const timeStart = time.getAttribute('from') || '';
+          const dateStart = new Date(timeStart).toLocaleTimeString('es-EC', {
+            hour: '2-digit',
+            minute: '2-digit',
+          }); // Formato HH:mm
+          const date = timeStart.split('T')[0];
+          const timeEnd = time.getAttribute('to') || '';
+          const dateEnd = new Date(timeEnd).toLocaleTimeString('es-EC', {
+            hour: '2-digit',
+            minute: '2-digit',
+          }); // Formato HH:mm
           const precipitation = time.querySelector('precipitation')?.getAttribute('probability') || '';
           const humidity = time.querySelector('humidity')?.getAttribute('value') || '';
           const clouds = time.querySelector('clouds')?.getAttribute('all') || '';
-          const temperature =time.querySelector('temperature')?.getAttribute('value')||'';
+          const temperature = time.querySelector('temperature')?.getAttribute('value') || '';
 
-          dataToItems.push({ dateStart, dateEnd, precipitation, humidity, clouds, temperature });
+          dataToItems.push({ dateStart, dateEnd, precipitation, humidity, clouds, temperature, date });
         }
 
         setItems(dataToItems);
@@ -131,7 +140,7 @@ function App() {
     return indicators
       .map(
         (indicator, idx) => (
-          <Grid key={idx} size={{ xs: 12, xl: 3 }}>
+          <Grid key={idx} size={{ xs: 12, md: 3 }}>
             <IndicatorWeather
               title={indicator["title"]}
               subtitle={indicator["subtitle"]}
@@ -145,47 +154,35 @@ function App() {
   {/* JSX */ }
   return (
     <Grid container spacing={5}>
-      
+
       {/* Hora */}
       <Grid size={{ xs: 12 }}>
         <Clock />
       </Grid>
 
       {/* Indicadores */}
-      {/* <Grid size={{ xs: 12, xl: 3 }}>
-        <IndicatorWeather title={'Indicator 1'} subtitle={'Unidad 1'} value={"1.23"} />
-      </Grid>
-      <Grid size={{ xs: 12, xl: 3 }}>
-        <IndicatorWeather title={'Indicator 2'} subtitle={'Unidad 2'} value={"3.12"} />
-      </Grid>
-      <Grid size={{ xs: 12, xl: 3 }}>
-        <IndicatorWeather title={'Indicator 3'} subtitle={'Unidad 3'} value={"2.31"} />
-      </Grid>
-      <Grid size={{ xs: 12, xl: 3 }}>
-        <IndicatorWeather title={'Indicator 4'} subtitle={'Unidad 4'} value={"3.21"} />
-      </Grid> */}
-
       {renderIndicators()}
 
-      {/* Tabla */}
+      {/* Gráfico */}
       <Grid size={{ xs: 12, xl: 8 }}>
 
         {/* Grid Anidado */}
-        <Grid container spacing={2}>
-          <Grid size={{ xs: 12, xl: 3 }}>
+        <Grid container spacing={2} >
+
+          <Grid size={{ xs: 12, md: 3 }}>
             <ControlWeather />
           </Grid>
-          <Grid size={{ xs: 12, xl: 9 }}>
-            <LineChartWeather itemsIn={items}/>
+          <Grid size={{ xs: 12, md: 9 }}>
+            <LineChartWeather itemsIn={items} />
           </Grid>
         </Grid>
 
       </Grid>
 
 
-      {/* Gráfico */}
-      <Grid size={{ xs: 12, xl: 9 }}>
-        < TableWeather itemsIn={items}/>
+      {/* Tabla */}
+      <Grid size={{ xs: 12, md: 12 }}>
+        < TableWeather itemsIn={items} />
       </Grid>
 
     </Grid>

@@ -3,7 +3,9 @@ export default interface Item {
     dateEnd: String;
     precipitation?: string;
     humidity?: string;
-    clouds: String;
+    clouds: string;
 
     temperature?: string; // Añade este campo
+
+    date:string;
 }

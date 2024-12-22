@@ -7,18 +7,6 @@ interface MyProp {
     itemsIn: Item[];
 }
 
-// const uData = [4000, 3000, 2000, 2780, 1890, 2390, 3490];
-// const pData = [2400, 1398, 9800, 3908, 4800, 3800, 4300];
-// const xLabels = [
-//     'Page A',
-//     'Page B',
-//     'Page C',
-//     'Page D',
-//     'Page E',
-//     'Page F',
-//     'Page G',
-// ];
-
 export default function LineChartWeather({ itemsIn }: MyProp) {
     // Obtén los datos para el gráfico
     // const temperatures = itemsIn.map(item => parseFloat(item.temperature || '0'));
@@ -33,7 +21,8 @@ export default function LineChartWeather({ itemsIn }: MyProp) {
     });
 
     const humidities = itemsIn.map(item => parseFloat(item.humidity || '0'));
-    const precipitations = itemsIn.map(item => parseFloat(item.precipitation || '0'));
+    const precipitations = itemsIn.map(item => parseFloat(item.precipitation || '0')*100);
+    const clouds = itemsIn.map(item => parseFloat(item.clouds || '0'));
     const labels = itemsIn.map(item => item.dateStart); // Etiquetas del eje X
 
     return (
@@ -47,12 +36,13 @@ export default function LineChartWeather({ itemsIn }: MyProp) {
 
             {/* Componente para un gráfico de líneas */}
             <LineChart
-                width={600}
-                height={450}
+                width={900}
+                height={550}
                 series={[
                     { data: temperatures, label: 'Temperatura (°C)' },
                     { data: humidities, label: 'Humedad (%)' },
                     { data: precipitations, label: 'Precipitación (%)' },
+                    { data: clouds, label: 'Nubosidad (%)' },
                 ]}
                 xAxis={[{ scaleType: 'point', data: labels }]}
             />

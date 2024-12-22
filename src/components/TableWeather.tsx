@@ -15,24 +15,6 @@ interface MyProp {
   itemsIn: Item[];
 }
 
-// function createData(
-//   name: string,
-//   calories: number,
-//   fat: number,
-//   carbs: number,
-//   protein: number,
-// ) {
-//   return { name, calories, fat, carbs, protein };
-// }
-
-// const rows = [
-//   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-//   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-//   createData('Eclair', 262, 16.0, 24, 6.0),
-//   createData('Cupcake', 305, 3.7, 67, 4.3),
-//   createData('Gingerbread', 356, 16.0, 49, 3.9),
-// ];
-
 export default function BasicTable(props: MyProp) {
 
   const [rows, setRows] = useState<Item[]>([]);
@@ -42,46 +24,29 @@ export default function BasicTable(props: MyProp) {
   }, [props]);
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper}  elevation={5} sx={{ borderRadius: '5px' }}>
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
-            {/* <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell> */}
-            <TableCell>Hora de inicio</TableCell>
-            <TableCell align="right">Hora de fin</TableCell>
-            <TableCell align="right">Precipitación</TableCell>
-            <TableCell align="right">Humedad</TableCell>
-            <TableCell align="right">Nubosidad</TableCell>
+            <TableCell align='center'>Día</TableCell>
+            <TableCell align='center'>Hora de inicio</TableCell>
+            <TableCell align='center'>Hora de fin</TableCell>
+            <TableCell align='center'>Precipitación</TableCell>
+            <TableCell align='center'>Humedad</TableCell>
+            <TableCell align='center'>Nubosidad</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {/* {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
-            </TableRow>
-          ))} */}
           {rows.map((row, idx) => (
             <TableRow key={idx} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-              <TableCell component="th" scope="row">
-                {row.dateStart}
+              <TableCell component="th" scope="row" align='center'>
+                {row.date}
               </TableCell>
-              <TableCell align="right">{row.dateEnd}</TableCell>
-              <TableCell align="right">{row.precipitation}</TableCell>
-              <TableCell align="right">{row.humidity}</TableCell>
-              <TableCell align="right">{row.clouds}</TableCell>
+              <TableCell align="center">{row.dateStart}</TableCell>
+              <TableCell align="center">{row.dateEnd}</TableCell>
+              <TableCell align="center">{row.precipitation}</TableCell>
+              <TableCell align="center">{row.humidity}</TableCell>
+              <TableCell align="center">{row.clouds}</TableCell>
             </TableRow>
           ))}
         </TableBody>

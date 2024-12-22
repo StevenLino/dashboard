@@ -29,7 +29,8 @@ export default function ControlWeather() {
     let items = [
         { "name": "Precipitación", "description": "Cantidad de agua que cae sobre una superficie en un período específico." },
         { "name": "Humedad", "description": "Cantidad de vapor de agua presente en el aire, generalmente expresada como un porcentaje." },
-        { "name": "Nubosidad", "description": "Grado de cobertura del cielo por nubes, afectando la visibilidad y la cantidad de luz solar recibida." }
+        { "name": "Nubosidad", "description": "Grado de cobertura del cielo por nubes, afectando la visibilidad y la cantidad de luz solar recibida." },
+        { "name": "Temperatura", "description": "Magnitud física que expresa el grado de frío o calor de los cuerpos o del ambiente." }
     ]
 
     {/* Arreglo de elementos JSX */ }
@@ -58,7 +59,7 @@ export default function ControlWeather() {
                 flexDirection: 'column' 
             }}
         >
-            <Typography mb={2} component="h3" variant="h6" color="#7FFFD4">
+            <Typography mb={2} component="h3" variant="h6" color="#26b384">
                 Variables Meteorológicas
             </Typography>
 
