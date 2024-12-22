@@ -17,7 +17,11 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 // import { useState, useRef } from 'react';
 import { useState } from 'react';
 
-export default function ControlWeather() {
+interface TableProps {
+    onVariableSelect: (variable: string) => void; // Prop para manejar la selección
+  }
+
+export default function ControlWeather({ onVariableSelect }: TableProps) {
 
     // {/* Constante de referencia a un elemento HTML */ }
     // const descriptionRef = useRef<HTMLDivElement>(null);
@@ -47,7 +51,7 @@ export default function ControlWeather() {
         // if (descriptionRef.current !== null) {
         //     descriptionRef.current.innerHTML = (idx >= 0) ? items[idx]["description"] : ""
         // }
-
+        if (idx >= 0) onVariableSelect(items[idx].name);
     };
 
     {/* JSX */ }

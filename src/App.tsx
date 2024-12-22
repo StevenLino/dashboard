@@ -22,6 +22,11 @@ interface Indicator {
 }
 
 function App() {
+  const [selectedVariable, setSelectedVariable] = useState<string>('Temperatura'); // Variable seleccionada para la gráfica
+
+  const handleVariableSelect = (variable: string) => {
+    setSelectedVariable(variable); // Actualiza la variable seleccionada
+  };
 
   // Variable de estado para un arreglo del tipo Item
   const [items, setItems] = useState<Item[]>([]);
@@ -170,10 +175,12 @@ function App() {
         <Grid container spacing={2} >
 
           <Grid size={{ xs: 12, md: 3 }}>
-            <ControlWeather />
+            <ControlWeather onVariableSelect={handleVariableSelect}/>
           </Grid>
           <Grid size={{ xs: 12, md: 9 }}>
-            <LineChartWeather itemsIn={items} />
+            <LineChartWeather 
+            itemsIn={items} 
+            selectedVariable={selectedVariable}/>
           </Grid>
         </Grid>
 
