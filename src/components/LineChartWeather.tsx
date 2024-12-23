@@ -5,62 +5,45 @@ import Item from '../interface/Item';
 
 interface MyProp {
     itemsIn: Item[];
-    selectedVariable: string;
+    selectedVariable?: string;
 }
 
 export default function LineChartWeather({ itemsIn, selectedVariable }: MyProp) {
-    // Obtén los datos para el gráfico
-    // const temperatures = itemsIn.map(item => parseFloat(item.temperature || '0'));
-    // Validar y depurar datos
-    // const temperatures = itemsIn.map(item => {
-    //     const temp = parseFloat(item.temperature || '0') - 273.15;
-    //     if (isNaN(temp)) {
-    //         console.warn('Dato inválido para temperatura:', item);
-    //         return 0; // Valor por defecto en caso de error
-    //     }
-    //     return temp;
-    // });
-
-    // const humidities = itemsIn.map(item => parseFloat(item.humidity || '0'));
-    // const precipitations = itemsIn.map(item => parseFloat(item.precipitation || '0')*100);
-    // const clouds = itemsIn.map(item => parseFloat(item.clouds || '0'));
-    // Mapear los datos según la variable seleccionada
-    const data = itemsIn.map((item) => {
-        switch (selectedVariable) {
-            case 'Temperatura':
-                return parseFloat(item.temperature || '0') - 273.15;
-            case 'Humedad':
-                return parseFloat(item.humidity || '0');
-            case 'Precipitación':
-                return parseFloat(item.precipitation || '0') * 100;
-            case 'Nubosidad':
-                return parseFloat(item.clouds || '0');
-            default:
-                return 0;
-        }
-    });
+    // Mapear los datos para cada variable
+    const temperatures = itemsIn.map(item => parseFloat(item.temperature || '0') - 273.15);
+    const humidities = itemsIn.map(item => parseFloat(item.humidity || '0'));
+    const precipitations = itemsIn.map(item => parseFloat(item.precipitation || '0') * 100);
+    const clouds = itemsIn.map(item => parseFloat(item.clouds || '0'));
     const labels = itemsIn.map(item => item.dateStart); // Etiquetas del eje X
+
+    // Generar series para todas las variables
+    const allSeries = [
+        { data: temperatures, label: 'Temperatura (°C)' },
+        { data: humidities, label: 'Humedad (%)' },
+        { data: precipitations, label: 'Precipitación (%)' },
+        { data: clouds, label: 'Nubosidad (%)' },
+    ];
+
+    // Determinar qué series mostrar
+    const seriesToDisplay =
+        selectedVariable && selectedVariable.trim() !== ''
+            ? allSeries.filter(series => series.label.includes(selectedVariable))
+            : allSeries;
 
     return (
         <Paper
             sx={{
                 p: 2,
                 display: 'flex',
-                flexDirection: 'column'
+                flexDirection: 'column',
+                border: '1px solid black'
             }}
         >
-
             {/* Componente para un gráfico de líneas */}
             <LineChart
-                width={900}
+                width={800}
                 height={550}
-                // series={[
-                //     { data: temperatures, label: 'Temperatura (°C)' },
-                //     { data: humidities, label: 'Humedad (%)' },
-                //     { data: precipitations, label: 'Precipitación (%)' },
-                //     { data: clouds, label: 'Nubosidad (%)' },
-                // ]}
-                series={[{ data, label: selectedVariable }]}
+                series={seriesToDisplay} // Renderiza las series seleccionadas o todas
                 xAxis={[{ scaleType: 'point', data: labels }]}
             />
         </Paper>

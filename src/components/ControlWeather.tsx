@@ -60,10 +60,11 @@ export default function ControlWeather({ onVariableSelect }: TableProps) {
             sx={{
                 p: 2,
                 display: 'flex',
-                flexDirection: 'column' 
+                flexDirection: 'column', 
+                border: '1px solid black'
             }}
         >
-            <Typography mb={2} component="h3" variant="h6" color="#26b384">
+            <Typography mb={2} component="h3" variant="h6" color="#26b384" fontFamily="Times New Roman">
                 Variables Meteorológicas
             </Typography>
 
@@ -88,7 +89,7 @@ export default function ControlWeather({ onVariableSelect }: TableProps) {
             </Box>
 
             {/* Use la variable de estado para renderizar del item seleccionado */}
-            <Typography mt={2} component="p" color="text.secondary">
+            <Typography mt={2} component="p" color="text.secondary" fontFamily="Times New Roman">
                 {
                     (selected >= 0) ? items[selected]["description"] : ""
                 }

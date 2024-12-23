@@ -22,7 +22,7 @@ interface Indicator {
 }
 
 function App() {
-  const [selectedVariable, setSelectedVariable] = useState<string>('Temperatura'); // Variable seleccionada para la gráfica
+  const [selectedVariable, setSelectedVariable] = useState<string>(''); // Variable seleccionada para la gráfica
 
   const handleVariableSelect = (variable: string) => {
     setSelectedVariable(variable); // Actualiza la variable seleccionada
@@ -83,10 +83,8 @@ function App() {
 
         let dataToIndicators: Indicator[] = new Array<Indicator>();
 
-        {/* 
-          Análisis, extracción y almacenamiento del contenido del XML 
-          en el arreglo de resultados
-      */}
+        {/* Análisis, extracción y almacenamiento del contenido del XML 
+          en el arreglo de resultados*/}
 
         let name = xml.getElementsByTagName("name")[0].innerHTML || ""
         dataToIndicators.push({ "title": xml.getElementsByTagName("country")[0].innerHTML || " ", "subtitle": "City", "value": name })
@@ -101,8 +99,6 @@ function App() {
 
         let altitude = location.getAttribute("altitude") || ""
         dataToIndicators.push({ "title": "Altitude", "subtitle": "Altitude", "value": altitude })
-
-        // console.log( dataToIndicators )
 
         {/* Modificación de la variable de estado mediante la función de actualización */ }
         setIndicators(dataToIndicators)
@@ -175,12 +171,12 @@ function App() {
         <Grid container spacing={2} >
 
           <Grid size={{ xs: 12, md: 3 }}>
-            <ControlWeather onVariableSelect={handleVariableSelect}/>
+            <ControlWeather onVariableSelect={handleVariableSelect} />
           </Grid>
           <Grid size={{ xs: 12, md: 9 }}>
-            <LineChartWeather 
-            itemsIn={items} 
-            selectedVariable={selectedVariable}/>
+            <LineChartWeather
+              itemsIn={items}
+              selectedVariable={selectedVariable} />
           </Grid>
         </Grid>
 
@@ -193,6 +189,7 @@ function App() {
       </Grid>
 
     </Grid>
+
   )
 }
 
