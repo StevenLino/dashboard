@@ -124,8 +124,9 @@ function App() {
           const humidity = time.querySelector('humidity')?.getAttribute('value') || '';
           const clouds = time.querySelector('clouds')?.getAttribute('all') || '';
           const temperature = time.querySelector('temperature')?.getAttribute('value') || '';
+          const weatherState = time.querySelector('symbol')?.getAttribute('name') || '';
 
-          dataToItems.push({ dateStart, dateEnd, precipitation, humidity, clouds, temperature, date });
+          dataToItems.push({ dateStart, dateEnd, precipitation, humidity, clouds, temperature, date, weatherState });
         }
 
         setItems(dataToItems);

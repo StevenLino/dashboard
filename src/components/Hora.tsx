@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import sunIcon from '../pngegg.png'
 
 const Clock: React.FC = () => {
     const [currentTime, setCurrentTime] = useState<string>(() => new Date().toLocaleTimeString());
@@ -20,34 +21,50 @@ const Clock: React.FC = () => {
             border: '1px solid black', // (opcional) Un borde para visualizar el área
             borderRadius: '5px',
             backgroundColor: 'white'
-        }}
-        >
+        }}>
+            {/* Contenedor de texto e imagen */}
+            <div style={{
+                display: 'flex',
+                alignItems: 'center', // Alinea verticalmente la imagen y el texto
+                gap: '0.5em' // Espacio entre la imagen y el texto
+            }}>
+                {/* Imagen */}
+                <img
+                    src={sunIcon}  // Cambia al path correcto si lo necesitas
+                    alt="Logo Icon"
+                    style={{
+                        width: '24px', // Tamaño de la imagen
+                        height: '24px',
+                        objectFit: 'contain' // Ajusta la imagen sin distorsión
+                    }}
+                />
+                {/* Texto */}
+                <div
+                    style={{
+                        color: 'black',
+                        fontSize: '1.5em',
+                        fontWeight: 'bold',
+                        fontFamily: 'Times New Roman'
+                    }}
+                >
+                    El tiempo
+                </div>
+            </div>
+
+            {/* Hora actual */}
             <div
                 style={{
                     color: 'black',
                     fontSize: '1.5em',
                     fontWeight: 'bold',
-                    textAlign: 'left', // Alinea el texto a la derecha
-                    paddingRight: '1em', // Espaciado desde el borde derecho
+                    textAlign: 'right',
+                    paddingRight: '1em',
                     fontFamily: 'Times New Roman'
                 }}
             >
-                El tiempo
+                {currentTime}
             </div>
-            <div
-                style={{
-                    color: 'black',
-                    fontSize: '1.5em',
-                    fontWeight: 'bold',
-                    textAlign: 'right', // Alinea el texto a la derecha
-                    paddingRight: '1em', // Espaciado desde el borde derecho
-                    fontFamily: 'Times New Roman',
-                    //textShadow: '0.2px black'   sombra
-                }}
-            >
-            {currentTime}
         </div>
-        </div >
     );
 };
 

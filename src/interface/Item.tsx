@@ -5,7 +5,9 @@ export default interface Item {
     humidity?: string;
     clouds: string;
 
-    temperature?: string; // Añade este campo
+    temperature?: string;
 
     date:string;
+
+    weatherState: string; //estado del clima
 }
